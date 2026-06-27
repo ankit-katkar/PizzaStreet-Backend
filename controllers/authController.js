@@ -88,17 +88,16 @@ const setProfile = async (req, res) => {
       response = await userAuth.findByIdAndUpdate(userId, updateData, { returnDocument: 'after' })
       message = "User updated Successfully"
     } else {
-      const addData = {
+      const addData = new userAuth({
         contactNumber,
         userName,
         email: email || null,
         dateOfBirth: dateOfBirth || null,
         gender: gender || null
-      }
+      })
       response = await addData.save()
       message = "User added successfully"
     }
-
     res.status(200).json({
       status: true, data: response, message: message,
     });
