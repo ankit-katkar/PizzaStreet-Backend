@@ -35,7 +35,7 @@ app.use("/api/v1/checkout", checkoutRoutes);
 app.post('/api/v1/upload', uploadImage.single('file') , uploadImageController)
 
 // Port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Server
 app.listen(PORT, () => {

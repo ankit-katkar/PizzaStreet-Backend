@@ -8,8 +8,7 @@ const verifyContactNumber = async (req, res) => {
     const { contactNumber } = req.body;
 
     //validation
-    if (!contactNumber)
-      return res.status(400).json({ status: false, message: "Contact number is required" });
+    if (!contactNumber) return res.status(400).json({ status: false, message: "Contact number is required" });
 
     // check use is exist
     let existingUser = await userAuth.findOne({ contactNumber });
@@ -23,10 +22,9 @@ const verifyContactNumber = async (req, res) => {
       message: "OTP sent successfully",
       data: {
         contactNumber,
+        otp
       },
     });
-
-    console.log("OTP:", otp);
   } catch (error) {
     res.status(500).json({ status: false, message: "Server Error" });
   }
