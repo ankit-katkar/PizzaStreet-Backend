@@ -9,6 +9,9 @@ const uploadImages = mongoose.Schema({
         type: String,
         required: [false],
     },
+    publicId: {
+      type: String,
+    },
 },
 {
     timestamps: true

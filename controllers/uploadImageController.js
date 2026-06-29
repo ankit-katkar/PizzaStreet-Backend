@@ -1,22 +1,35 @@
-import uploadImageModels from '../models/uploadImageModels.js'
 
-const uploadImage = async (req, resp)=>{
-    try {
-        const imagePath = `http://localhost:3000/uploads/${req.file.filename}`;
-        const addImage = new uploadImageModels({
-            imageUrl: imagePath,
-            imageName: req.file.originalname
-        })
-        await addImage.save();
-        resp.status(200).json({
-            status: true,
-            message: 'Product added successfully',
-            data:addImage
-        })
-        
-    } catch (error) {
-         resp.status(500).json({ status: false, message: error.message });
+import uploadImageModels from "../models/uploadImageModels.js";
+
+const UploadImageController = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        status: false,
+        message: "Please upload an image",
+      });
     }
-}
 
-export default uploadImage
+    const addImage = new uploadImageModels({
+      imageUrl: req.file.path,
+      publicId: req.file.filename,
+      imageName: req.file.originalname,
+    });
+
+    await addImage.save();
+
+    res.status(200).json({
+      status: true,
+      message: "Success",
+      data: addImage,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      message: error.message,
+    });
+  }
+};
+
+export default UploadImageController;

@@ -91,6 +91,7 @@ const setProfile = async (req, res) => {
       const addData = new userAuth({
         contactNumber,
         userName,
+        userRole:"User",
         email: email || null,
         dateOfBirth: dateOfBirth || null,
         gender: gender || null
@@ -98,9 +99,7 @@ const setProfile = async (req, res) => {
       response = await addData.save()
       message = "User added successfully"
     }
-    res.status(200).json({
-      status: true, data: response, message: message,
-    });
+    res.status(200).json({ status: true, data: response, message: message });
   } catch (error) {
     res.status(500).json({ status: false, message: error.message });
   }

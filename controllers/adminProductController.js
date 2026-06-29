@@ -5,6 +5,7 @@ import CheckoutModels from "../models/checkoutModels.js";
 import authModels from '../models/authModels.js'
 import fs from 'fs'
 import path from 'path'
+import cloudinary from "../config/cloudinary.js";
 
 const addProduct = async (req, resp) => {
     try {
@@ -163,12 +164,7 @@ const deleteProduct = async (req, resp) => {
         });
 
         if (productImage) {
-            const imageName = productImage.imageUrl.split("/").pop();
-            const imagePath = path.join("uploads", imageName);
-
-            if (fs.existsSync(imagePath)) {
-                fs.unlinkSync(imagePath);
-            }
+            const result = await cloudinary.uploader.destroy(productImage.publicId);
 
             await uploadImageModels.findByIdAndDelete(productImage._id)
         }

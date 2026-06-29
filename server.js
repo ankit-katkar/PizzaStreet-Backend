@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import uploadImageController from "./controllers/uploadImageController.js";
-import uploadImage from './middlewares/uploadImage.js'
+import UploadImage from './middlewares/uploadImage.js'
 
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -32,7 +32,7 @@ app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/checkout", checkoutRoutes);
 
 // API 
-app.post('/api/v1/upload', uploadImage.single('file') , uploadImageController)
+app.post('/api/v1/upload', UploadImage.single('file') , uploadImageController)
 
 // Port
 const PORT = process.env.PORT || 3000;
